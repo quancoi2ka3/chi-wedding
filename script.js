@@ -261,12 +261,13 @@ async function submitRSVPToNetlify(form) {
   }
 
   try {
-    await fetch("/", {
+    const endpoint = form.getAttribute("action") || "/";
+    const response = await fetch(endpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
       body: new URLSearchParams(formData).toString()
     });
-    return true;
+    return response.ok;
   } catch {
     return false;
   }
